@@ -1,0 +1,12 @@
+streamlit==1.51.0
+scikit-learn==1.7.2
+pandas==2.3.3
+numpy==2.3.4
+scipy==1.16.3
+SQLAlchemy==2.0.44
+psycopg2==2.9.11
+langchain==1.0.2
+langchain-community==0.4.1
+langchain-openai==1.0.1
+langchain-chroma==1.0.0
+protobuf==5.29.3
