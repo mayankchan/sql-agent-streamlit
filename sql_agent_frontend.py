@@ -7,15 +7,19 @@ Created on Sat Feb 28 06:54:08 2026
 
 
 ##################################################################################################
-# 01 - Bring in .env information
+# 01 - Explicitly provide open AI key (present in secret at Streamlit)
 ##################################################################################################
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
+# import os
+# from dotenv import load_dotenv
+# load_dotenv()
 
+
+# import streamlit as st
 
 import streamlit as st
+import os
+
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 
@@ -23,8 +27,16 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 # 02 - Create the connection string for the postgres database
 ##################################################################################################
 
-POSTGRES_URI = (f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}"
-                f"@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DBNAME')}?sslmode=require")
+# POSTGRES_URI = (f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}"
+#                 f"@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DBNAME')}?sslmode=require")
+
+POSTGRES_URI = (
+    f"postgresql+psycopg2://{st.secrets['POSTGRES_USER']}:"
+    f"{st.secrets['POSTGRES_PASSWORD']}@"
+    f"{st.secrets['POSTGRES_HOST']}:"
+    f"{st.secrets['POSTGRES_PORT']}/"
+    f"{st.secrets['POSTGRES_DBNAME']}?sslmode=require"
+)
 
 
 ##################################################################################################
@@ -100,13 +112,7 @@ agent = create_agent(model=sql_agent,
 
 
 ##################################################################################################
-# 09 - Streamlit frontend - import the libraries
-##################################################################################################
-
-
-
-##################################################################################################
-# 10 - Add title and instructions
+# 09 - Add title and instructions
 ##################################################################################################
 
 st.title("Population Stats")
@@ -116,7 +122,7 @@ user_input = st.text_input("Enter your query", value = "On average which gender 
 
 
 ##################################################################################################
-# 11 - Run test queries through the agent and extract the response
+# 10 - Run test queries through the agent and extract the response
 ##################################################################################################
 
 from langchain_core.messages import HumanMessage
@@ -130,7 +136,7 @@ if st.button("Submit"):
 
 
 ##################################################################################################
-# 12 - Print result on streamlit
+# 11 - Print result on streamlit
 ##################################################################################################
 
     st.subheader(result["messages"][-1].content)
