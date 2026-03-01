@@ -110,7 +110,7 @@ import pandas as pd
 st.title("Population Stats")
 st.subheader("What do you want to check? ")
 
-user_input = st.text_input("Enter your query")
+user_input = st.text_input("Enter your query",value = "On average which gender lives furthest from store?")
 
 
 ##################################################################################################
@@ -139,4 +139,5 @@ if st.button("Submit"):
 
 
     
+
 
