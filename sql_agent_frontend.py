@@ -15,6 +15,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+import streamlit as st
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
+
 ##################################################################################################
 # 02 - Create the connection string for the postgres database
 ##################################################################################################
@@ -99,8 +103,6 @@ agent = create_agent(model=sql_agent,
 # 09 - Streamlit frontend - import the libraries
 ##################################################################################################
 
-import streamlit as st
-import pandas as pd
 
 
 ##################################################################################################
@@ -110,7 +112,7 @@ import pandas as pd
 st.title("Population Stats")
 st.subheader("What do you want to check? ")
 
-user_input = st.text_input("Enter your query",value = "On average which gender lives furthest from store?")
+user_input = st.text_input("Enter your query", value = "On average which gender lives furthest from store?")
 
 
 ##################################################################################################
@@ -139,5 +141,4 @@ if st.button("Submit"):
 
 
     
-
 
